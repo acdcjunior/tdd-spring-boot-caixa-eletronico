@@ -23,13 +23,11 @@ Na pasta raiz do projeto (a pasta onde está o `build.gradle`), use:
 
     gradlew bootRun
     
-Para rodar, requer apenas o Java 8. Caso não tenha o Gradle instalado, um será baixado automaticamente.
+**Em seguida, acesse: http://127.0.0.1:8080/**
+    
+Observe que, para rodar, a única exigência é o Java 8. Caso não tenha o Gradle instalado, por exemplo, um será baixado automaticamente.
 
-
-
-
-
-  
+<br>
     
 ### Suporte Gradle no IntelliJ
 - O plugin 'idea' nao presta, pois soh cria _file-based_, nao _directory-based_.
