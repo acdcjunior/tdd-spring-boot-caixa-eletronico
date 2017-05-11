@@ -1,5 +1,7 @@
 # TDD + Caixa Eletrônico
 
+[![Build Status](https://travis-ci.org/acdcjunior/tdd-spring-boot-caixa-eletronico.svg?branch=master)](https://travis-ci.org/acdcjunior/tdd-spring-boot-caixa-eletronico)
+
 ![atm tdd](src/main/resources/static/banco-logo.png)
 ![atm tdd](src/main/resources/static/atm796x597.png)
 
