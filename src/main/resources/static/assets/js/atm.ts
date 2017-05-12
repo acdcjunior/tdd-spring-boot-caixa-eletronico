@@ -64,7 +64,7 @@ class Tela {
         const hora = `${hour}:${minute}:${second}`;
 
         Tela.html(`
-    <div>
+    <div id="relatorio">
         <div class="center">BANCO TDD</div>
         <div class="center">${data} - AUTO-ATENDIMENTO - ${hora}</div><br><br>
         <div class="center">SALDO PARA SIMPLES CONFERENCIA</div><br><br>
