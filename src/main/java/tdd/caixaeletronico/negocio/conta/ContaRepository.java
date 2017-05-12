@@ -9,6 +9,6 @@ public interface ContaRepository extends Repository<Conta, Long> {
 
 	List<Conta> findAll();
 
-	Conta findByClienteAndCodigo(Cliente cliente, String codigo);
+    Conta findByCliente(Cliente cliente);
 
 }

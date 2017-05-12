@@ -14,13 +14,16 @@ import java.util.List;
 @Controller
 public class ContasController {
 
-	@Autowired
-	private ClienteRepository clienteRepository;
+	private final ClienteRepository clienteRepository;
+	private final ContaRepository contaRepository;
 
-	@Autowired
-	private ContaRepository contaRepository;
+    @Autowired
+    public ContasController(ClienteRepository clienteRepository, ContaRepository contaRepository) {
+        this.clienteRepository = clienteRepository;
+        this.contaRepository = contaRepository;
+    }
 
-	@GetMapping("/cliente")
+    @GetMapping("/cliente")
 	@ResponseBody
 	@Transactional(readOnly = true)
 	public String cliente() {

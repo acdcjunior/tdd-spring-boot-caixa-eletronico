@@ -1,0 +1,132 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    font-family: 'Russo One', sans-serif;
+    /*font-family: 'Days One', sans-serif;*/
+    /*font-family: 'Baloo', cursive;*/
+}
+
+#banco-logo {
+    position: absolute;
+    top: 62px;
+    left: 620px;
+    opacity: 0.5;
+}
+
+#tela {
+    position: absolute;
+    top: 93px;
+    left: 105px;
+    height: 322px;
+    width: 351px;
+    /*border: 1px solid;*/
+}
+
+.rodape {
+    width: 100%;
+    text-align: center;
+    /*border: 1px solid;*/
+    margin-top: -10px;
+}
+
+.centro-tela {
+    height: 320px;
+    line-height: 320px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.centro-tela > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.logo {
+    height: 295px;
+    line-height: 295px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.logo span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+.logo h2 {
+    font-weight: normal;
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    margin: 0;
+    /* Apply animation to this element */
+    -moz-animation: logo 5s linear infinite alternate;
+    -webkit-animation: logo 5s linear infinite alternate;
+    animation: logo 5s linear infinite alternate;
+}
+/* Move it (define the animation) */
+@-moz-keyframes logo {
+    0%   { -moz-transform: translateX(32%); }
+    100% { -moz-transform: translateX(0%); }
+}
+@-webkit-keyframes logo {
+    0%   { -webkit-transform: translateX(32%); }
+    100% { -webkit-transform: translateX(0%); }
+}
+@keyframes logo {
+    0%   {
+        -moz-transform: translateX(32%); /* Firefox bug fix */
+        -webkit-transform: translateX(32%); /* Firefox bug fix */
+        transform: translateX(32%);
+    }
+    100% {
+        -moz-transform: translateX(0%); /* Firefox bug fix */
+        -webkit-transform: translateX(0%); /* Firefox bug fix */
+        transform: translateX(0%);
+    }
+}
+
+
+.blinker {
+    animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+.blinker2 {
+    animation: blinker2 2s linear infinite;
+}
+@keyframes blinker2 {
+    50% { opacity: 0; }
+}
+
+
+.center {
+    width: 100%;
+    text-align: center;
+}
+
+/*************************************************************/
+/* TELA MENU */
+/*************************************************************/
+
+#menu-titulo {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+[id^=menu-opcao] {
+    position: absolute;
+}
+#menu-opcao1 { right: 0; top: 27%; }
+#menu-opcao2 { right: 0; top: 48%; }
+#menu-opcao3 { right: 0; top: 69%; }
+#menu-opcao4 { right: 0; top: 90%; }
+#menu-opcao5 { left:  0; top: 27%; }
+#menu-opcao6 { left:  0; top: 48%; }
+#menu-opcao7 { left:  0; top: 69%; }
+#menu-opcao8 { left:  0; top: 90%; }
