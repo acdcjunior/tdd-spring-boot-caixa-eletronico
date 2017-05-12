@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,21 +25,11 @@ public class CaixaControllerTest {
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 	}
 
-	@Test
-	public void pagina_404() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
-		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<String> responseEntity = this.restTemplate
-				.exchange("/does-not-exist", HttpMethod.GET, requestEntity, String.class);
-		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-	}
-
     @Test
-    public void menu_cliente_1() throws Exception {
+    public void menu_cliente__apresenta_saldo() {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/menu/1", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody()).contains("menu");
+        assertThat(entity.getBody()).contains("Saldo");
     }
 
 }
