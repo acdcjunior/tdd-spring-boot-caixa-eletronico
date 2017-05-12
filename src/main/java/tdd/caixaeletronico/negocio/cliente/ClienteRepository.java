@@ -1,13 +1,13 @@
 package tdd.caixaeletronico.negocio.cliente;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;
+
+import java.util.List;
 
 public interface ClienteRepository extends Repository<Cliente, Long> {
 
-    Cliente findById(long id);
+	List<Cliente> findAll();
 
-	Page<Cliente> findAll(Pageable pageable);
+    Cliente findById(long id);
 
 }
