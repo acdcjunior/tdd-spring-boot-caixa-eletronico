@@ -18,7 +18,7 @@ var Tela = (function () {
         Tela.html("\n    <div class=\"centro-tela\">\n            <span>\n                " + mensagem + "\n                <br>\n                <span class=\"blinker2\">" + aguarde + "</span>\n            </span>\n    </div>\n        ");
     };
     Tela.menu = function (operacao) {
-        Tela.html("\n    <div>\n        <div id=\"menu-titulo\">" + operacao.titulo + "</div>\n        <div id=\"menu-subtitulo\">" + operacao.cliente.nome.toUpperCase() + " (" + operacao.cliente.cpf.toUpperCase() + ")</div>\n        <div id=\"menu-opcao1\">" + (operacao.opcao1 && operacao.opcao1.label || '') + "</div>\n        <div id=\"menu-opcao2\">" + (operacao.opcao2 && operacao.opcao2.label || '') + "</div>\n        <div id=\"menu-opcao3\">" + (operacao.opcao3 && operacao.opcao3.label || '') + "</div>\n        <div id=\"menu-opcao4\">" + (operacao.opcao4 && operacao.opcao4.label || '') + "</div>\n        <div id=\"menu-opcao5\">" + (operacao.opcao5 && operacao.opcao5.label || '') + "</div>\n        <div id=\"menu-opcao6\">" + (operacao.opcao6 && operacao.opcao6.label || '') + "</div>\n        <div id=\"menu-opcao7\">" + (operacao.opcao7 && operacao.opcao7.label || '') + "</div>\n        <div id=\"menu-opcao8\">" + (operacao.opcao8 && operacao.opcao8.label || '') + "</div>\n    </div>\n        ");
+        Tela.html("\n    <div>\n        <div id=\"menu-titulo\">" + operacao.titulo + "</div>\n        <div id=\"menu-subtitulo\">" + (operacao.cliente ? operacao.cliente.nome.toUpperCase() + "(" + operacao.cliente.cpf.toUpperCase() + ")" : "") + "</div>\n        <div id=\"menu-opcao1\">" + (operacao.opcao1 && operacao.opcao1.label || '') + "</div>\n        <div id=\"menu-opcao2\">" + (operacao.opcao2 && operacao.opcao2.label || '') + "</div>\n        <div id=\"menu-opcao3\">" + (operacao.opcao3 && operacao.opcao3.label || '') + "</div>\n        <div id=\"menu-opcao4\">" + (operacao.opcao4 && operacao.opcao4.label || '') + "</div>\n        <div id=\"menu-opcao5\">" + (operacao.opcao5 && operacao.opcao5.label || '') + "</div>\n        <div id=\"menu-opcao6\">" + (operacao.opcao6 && operacao.opcao6.label || '') + "</div>\n        <div id=\"menu-opcao7\">" + (operacao.opcao7 && operacao.opcao7.label || '') + "</div>\n        <div id=\"menu-opcao8\">" + (operacao.opcao8 && operacao.opcao8.label || '') + "</div>\n    </div>\n        ");
     };
     Tela.relatorio = function (operacao) {
         var d = new window.Date();
@@ -38,7 +38,8 @@ var Tela = (function () {
     };
     Tela.configurarTeclado = function () {
         function up(numero) {
-            $("#senha").val(($("#senha").val() + numero).substr(0, 4));
+            $("#senha").val((($("#senha").val() + numero) || '').substr(0, 4));
+            $("#valor").val(($("#valor").val() + numero));
         }
         $("#b1").off('click').on('click', function () { return up(1); });
         $("#b2").off('click').on('click', function () { return up(2); });
@@ -71,7 +72,28 @@ var Tela = (function () {
                 }, ATM.DELAY_REDE_MS);
             }
         });
-        Tela.html("\n    <div class=\"centro-tela\">\n            <span>\n                Digite sua senha para continuar.\n                <br>\n                <br>\n                <input id=\"senha\" type=\"text\" style=\"width: 31%; font-size: 300%;\">\n                <br>\n                <br>\n                Pressione ENTER para continuar ou CANCEL para cancelar.\n            </span>\n    </div>\n        ");
+        Tela.html("\n    <div class=\"centro-tela\">\n            <span>\n                Digite sua senha para prosseguir.\n                <br>\n                <br>\n                <input id=\"senha\" type=\"text\" style=\"width: 31%; font-size: 300%;\">\n                <br>\n                <br>\n                Pressione ENTER para continuar ou CANCEL para cancelar.\n            </span>\n    </div>\n        ");
+    };
+    Tela.entradaValor = function (atm, cliente, urlSucesso) {
+        $("#bCancel").off('click').on('click', function () {
+            $("#bCancel").off('click');
+            atm.executar("[CANCELAR]", cliente);
+        });
+        $("#bEnter").off('click').on('click', function () {
+            $("#bEnter").off('click');
+            var valorDigitado = $("#valor").val();
+            Tela.carregando();
+            if (!(+valorDigitado > 0)) {
+                window.setTimeout(function () {
+                    Tela.carregando("Número fornecido inválido.<br>Operação cancelada com sucesso.", "");
+                    window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
+                }, ATM.DELAY_REDE_MS);
+            }
+            else {
+                window.setTimeout(function () { return Tela.senha(atm, cliente, urlSucesso + "?valor=" + valorDigitado); }, ATM.DELAY_REDE_MS);
+            }
+        });
+        Tela.html("\n    <div class=\"centro-tela\">\n            <span>\n                Digite o valor desejado.\n                <br>\n                <br>\n                <span style=\"font-size: 300%;\">R$ <input id=\"valor\" type=\"text\" style=\"width: 41%; font-size: 100%;\">,00</span>\n                <br>\n                <br>\n                Pressione ENTER para continuar ou CANCEL para cancelar.\n            </span>\n    </div>\n        ");
     };
     return Tela;
 }());
@@ -119,6 +141,11 @@ var ATM = (function () {
                             return;
                         case 'relatorio':
                             Tela.relatorio(operacao);
+                            return;
+                        case 'informacao':
+                            Tela.carregando(operacao.titulo, "");
+                            window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO * 2);
+                            return;
                     }
                 },
                 error: Tela.erro

@@ -39,7 +39,7 @@ class Tela {
         Tela.html(`
     <div>
         <div id="menu-titulo">${operacao.titulo}</div>
-        <div id="menu-subtitulo">${(operacao.cliente.nome as any).toUpperCase()} (${(operacao.cliente.cpf as any).toUpperCase()})</div>
+        <div id="menu-subtitulo">${operacao.cliente ? (operacao.cliente.nome as any).toUpperCase() + "(" + (operacao.cliente.cpf as any).toUpperCase() + ")" : ""}</div>
         <div id="menu-opcao1">${operacao.opcao1 && operacao.opcao1.label || ''}</div>
         <div id="menu-opcao2">${operacao.opcao2 && operacao.opcao2.label || ''}</div>
         <div id="menu-opcao3">${operacao.opcao3 && operacao.opcao3.label || ''}</div>
@@ -88,7 +88,8 @@ class Tela {
     }
     static configurarTeclado() {
         function up(numero) {
-            $("#senha").val( ($("#senha").val()+numero).substr(0, 4) );
+            $("#senha").val( (($("#senha").val()+numero) || '').substr(0, 4) );
+            $("#valor").val( ($("#valor").val()+numero) );
         }
         $("#b1").off('click').on('click', () => up(1));
         $("#b2").off('click').on('click', () => up(2));
@@ -124,10 +125,43 @@ class Tela {
         Tela.html(`
     <div class="centro-tela">
             <span>
-                Digite sua senha para continuar.
+                Digite sua senha para prosseguir.
                 <br>
                 <br>
                 <input id="senha" type="text" style="width: 31%; font-size: 300%;">
+                <br>
+                <br>
+                Pressione ENTER para continuar ou CANCEL para cancelar.
+            </span>
+    </div>
+        `);
+    }
+    static entradaValor(atm: ATM, cliente: Cliente, urlSucesso: string) {
+        $("#bCancel").off('click').on('click', () => {
+            $("#bCancel").off('click');
+            atm.executar("[CANCELAR]", cliente);
+        });
+        $("#bEnter").off('click').on('click', () => {
+            $("#bEnter").off('click');
+            const valorDigitado = $("#valor").val();
+            Tela.carregando();
+            if (!(+valorDigitado > 0)) {
+                window.setTimeout(() => {
+                    Tela.carregando("Número fornecido inválido.<br>Operação cancelada com sucesso.", "");
+                    window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
+                }, ATM.DELAY_REDE_MS);
+            } else {
+                window.setTimeout(() => Tela.senha(atm, cliente, urlSucesso + "?valor=" + valorDigitado), ATM.DELAY_REDE_MS);
+            }
+        });
+
+        Tela.html(`
+    <div class="centro-tela">
+            <span>
+                Digite o valor desejado.
+                <br>
+                <br>
+                <span style="font-size: 300%;">R$ <input id="valor" type="text" style="width: 41%; font-size: 100%;">,00</span>
                 <br>
                 <br>
                 Pressione ENTER para continuar ou CANCEL para cancelar.
@@ -182,7 +216,12 @@ class ATM {
                             Tela.menu(operacao);
                             return;
                         case 'relatorio':
-                            Tela.relatorio(operacao)
+                            Tela.relatorio(operacao);
+                            return;
+                        case 'informacao':
+                            Tela.carregando(operacao.titulo, "");
+                            window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO*2);
+                            return;
                     }
                 },
                 error: Tela.erro
