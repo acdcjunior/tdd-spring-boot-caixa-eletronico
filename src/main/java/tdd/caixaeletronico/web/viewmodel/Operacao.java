@@ -1,10 +1,11 @@
-package tdd.caixaeletronico.web;
+package tdd.caixaeletronico.web.viewmodel;
 
 import tdd.caixaeletronico.negocio.cliente.Cliente;
 import tdd.caixaeletronico.negocio.conta.Conta;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
-class Operacao {
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue"})
+public class Operacao {
+
     private String tipo;
 
     private String titulo;
@@ -47,19 +48,5 @@ class Operacao {
     public void setOpcao7(Opcao opcao7) { this.opcao7 = opcao7; }
     public Opcao getOpcao8() { return opcao8; }
     public void setOpcao8(Opcao opcao8) { this.opcao8 = opcao8; }
-}
 
-@SuppressWarnings("unused")
-class Opcao {
-    static final String SAIR = "[SAIR]";
-    static final String COMPROVANTE = "[COMPROVANTE]";
-
-    private String label;
-    private String url;
-    Opcao(String label, String url) {
-        this.label = label;
-        this.url = url;
-    }
-    public String getLabel() { return label; }
-    public String getUrl() { return url; }
 }

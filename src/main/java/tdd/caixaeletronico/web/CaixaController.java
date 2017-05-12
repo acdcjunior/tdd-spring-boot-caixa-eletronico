@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tdd.caixaeletronico.negocio.cliente.Cliente;
 import tdd.caixaeletronico.negocio.cliente.ClienteRepository;
 import tdd.caixaeletronico.negocio.conta.ContaRepository;
+import tdd.caixaeletronico.web.viewmodel.Opcao;
+import tdd.caixaeletronico.web.viewmodel.Operacao;
 
 @Controller
 public class CaixaController {
