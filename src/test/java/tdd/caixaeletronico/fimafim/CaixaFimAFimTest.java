@@ -48,7 +48,7 @@ public class CaixaFimAFimTest {
         String cpfCliente = "555.888.999-33";
         Cliente cliente = new Cliente(99L, nomeCliente, cpfCliente, "9988");
         given(this.clienteRepository.findById(1)).willReturn(cliente);
-        Conta conta = new Conta(999L, "1144-X", "99999-9", "CC", cliente, new BigDecimal(5000));
+        Conta conta = new Conta("1144-X", "99999-9", "CC", cliente, new BigDecimal(5000));
         given(contaRepository.findByCliente(cliente)).willReturn(conta);
         // execute
         $.url("http://127.0.0.1:" + port + "/");
