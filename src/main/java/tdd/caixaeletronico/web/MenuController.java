@@ -11,7 +11,7 @@ import tdd.caixaeletronico.web.viewmodel.Opcao;
 import tdd.caixaeletronico.web.viewmodel.Operacao;
 
 @Controller
-@Transactional
+@Transactional(readOnly = true)
 public class MenuController {
 
     private final ClienteRepository clienteRepository;
