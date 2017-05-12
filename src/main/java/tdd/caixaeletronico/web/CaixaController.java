@@ -13,6 +13,7 @@ import tdd.caixaeletronico.web.viewmodel.Opcao;
 import tdd.caixaeletronico.web.viewmodel.Operacao;
 
 @Controller
+@Transactional
 public class CaixaController {
 
     private final ClienteRepository clienteRepository;
@@ -31,7 +32,6 @@ public class CaixaController {
 
     @GetMapping("/menu/{idCliente}")
     @ResponseBody
-    @Transactional(readOnly = true)
     public Operacao menu(@PathVariable long idCliente) {
         Operacao operacao = new Operacao();
         operacao.setTipo("menu");
@@ -48,7 +48,6 @@ public class CaixaController {
 
     @GetMapping("/saldo/{idCliente}")
     @ResponseBody
-    @Transactional(readOnly = true)
     public Operacao saldo(@PathVariable long idCliente) {
         Operacao operacao = new Operacao();
         operacao.setTipo("relatorio");
