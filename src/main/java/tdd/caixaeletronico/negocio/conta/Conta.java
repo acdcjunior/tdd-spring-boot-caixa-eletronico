@@ -32,7 +32,8 @@ public class Conta implements Serializable {
 
 	protected Conta() { }
 
-    public Conta(String agencia, String codigo, String tipo, Cliente cliente, BigDecimal saldo) {
+    public Conta(Long id, String agencia, String codigo, String tipo, Cliente cliente, BigDecimal saldo) {
+        this.id = id;
         this.agencia = agencia;
         this.codigo = codigo;
         this.tipo = tipo;

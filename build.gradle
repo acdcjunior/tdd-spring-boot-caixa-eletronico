@@ -39,4 +39,6 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    testCompile("io.github.seleniumquery:seleniumquery:0.16.0")
 }

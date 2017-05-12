@@ -1,7 +1,7 @@
 declare const $: any;
 declare const window: any;
 
-const HOST = 'http://127.0.0.1:8080/';
+const HOST = window.location.href.indexOf('_ijt') !== -1 ? 'http://127.0.0.1:8080/' : '/';
 
 function zeroPad(minute: number) {
     return minute < 10 ? "0" + minute : minute;
@@ -173,10 +173,11 @@ class ATM {
     }
 
     carregarUrl(url) {
+        const urlSemBarrasNoInicio = url.replace(/^\/+/, '');
         window.setTimeout(() => {
             $.ajax({
                 dataType: "json",
-                url: HOST + url,
+                url: HOST + urlSemBarrasNoInicio,
                 success: (operacao: Operacao) => {
                     this.configurarBotoes(operacao);
                     switch (operacao.tipo) {

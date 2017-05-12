@@ -27,6 +27,13 @@ public class Cliente implements Serializable {
 
 	protected Cliente() { }
 
+    public Cliente(Long id, String nome, String cpf, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
     public Long getId() {
         return id;
     }

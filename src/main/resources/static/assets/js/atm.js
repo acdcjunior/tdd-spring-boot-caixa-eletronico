@@ -1,4 +1,4 @@
-var HOST = 'http://127.0.0.1:8080/';
+var HOST = window.location.href.indexOf('_ijt') !== -1 ? 'http://127.0.0.1:8080/' : '/';
 function zeroPad(minute) {
     return minute < 10 ? "0" + minute : minute;
 }
@@ -109,10 +109,11 @@ var ATM = (function () {
     };
     ATM.prototype.carregarUrl = function (url) {
         var _this = this;
+        var urlSemBarrasNoInicio = url.replace(/^\/+/, '');
         window.setTimeout(function () {
             $.ajax({
                 dataType: "json",
-                url: HOST + url,
+                url: HOST + urlSemBarrasNoInicio,
                 success: function (operacao) {
                     _this.configurarBotoes(operacao);
                     switch (operacao.tipo) {
