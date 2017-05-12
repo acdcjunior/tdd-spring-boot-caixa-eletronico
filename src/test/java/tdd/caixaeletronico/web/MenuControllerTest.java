@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class CaixaControllerTest {
+public class MenuControllerTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
@@ -29,6 +29,8 @@ public class CaixaControllerTest {
     public void menu_cliente__apresenta_saldo() {
         ResponseEntity<String> entity = this.restTemplate.getForEntity("/menu/1", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody()).contains("Sair");
+        assertThat(entity.getBody()).contains("Financiamento");
         assertThat(entity.getBody()).contains("Saldo");
     }
 

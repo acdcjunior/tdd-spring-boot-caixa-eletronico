@@ -24,7 +24,7 @@ import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class CaixaControllerSaldoTest {
+public class SaldoControllerTest {
 
     @Autowired
 	private TestRestTemplate restTemplate;

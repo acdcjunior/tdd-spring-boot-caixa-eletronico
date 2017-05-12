@@ -14,36 +14,15 @@ import tdd.caixaeletronico.web.viewmodel.Operacao;
 
 @Controller
 @Transactional
-public class CaixaController {
+public class SaldoController {
 
     private final ClienteRepository clienteRepository;
     private final ContaRepository contaRepository;
 
     @Autowired
-    public CaixaController(ClienteRepository clienteRepository, ContaRepository contaRepository) {
+    public SaldoController(ClienteRepository clienteRepository, ContaRepository contaRepository) {
         this.clienteRepository = clienteRepository;
         this.contaRepository = contaRepository;
-    }
-
-    @GetMapping("/")
-    public String index() {
-        return "redirect:atm.html";
-    }
-
-    @GetMapping("/menu/{idCliente}")
-    @ResponseBody
-    public Operacao menu(@PathVariable long idCliente) {
-        Operacao operacao = new Operacao();
-        operacao.setTipo("menu");
-        operacao.setTitulo("BANCO TDD<br>SELECIONE A OPERACAO DESEJADA");
-
-        operacao.setCliente(clienteRepository.findById(idCliente));
-
-        operacao.setOpcao3(new Opcao("Saldo", "/saldo/" + idCliente));
-        operacao.setOpcao4(new Opcao("Saque", "/saque/" + idCliente));
-        operacao.setOpcao7(new Opcao("Financiamento", "/financiamento/" + idCliente));
-        operacao.setOpcao8(new Opcao("Sair", Opcao.SAIR));
-        return operacao;
     }
 
     @GetMapping("/saldo/{idCliente}")
