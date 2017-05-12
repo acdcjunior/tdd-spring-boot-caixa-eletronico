@@ -29,10 +29,10 @@ public class CaixaController {
         return "redirect:atm.html";
     }
 
-    @GetMapping("/iniciar/{idCliente}")
+    @GetMapping("/menu/{idCliente}")
     @ResponseBody
     @Transactional(readOnly = true)
-    public Operacao iniciar(@PathVariable long idCliente) {
+    public Operacao menu(@PathVariable long idCliente) {
         Operacao operacao = new Operacao();
         operacao.setTipo("menu");
         operacao.setTitulo("BANCO TDD<br>SELECIONE A OPERACAO DESEJADA");

@@ -2,7 +2,6 @@ package tdd.caixaeletronico.negocio.cliente;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClienteRepositoryIntegrationTest {
+public class ClienteRepositoryTest {
 
 	@Autowired
     private ClienteRepository clienteRepository;

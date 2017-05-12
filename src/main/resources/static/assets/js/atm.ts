@@ -142,8 +142,8 @@ class ATM {
     static readonly DELAY_REDE_MS: number = 2000 * ATM.REDUCAO;
     static readonly DELAY_TELAS_INFORMACAO: number = 3000 * ATM.REDUCAO;
 
-    public iniciar(idCliente: number) {
-        this.executar("/iniciar/" + idCliente);
+    public menu(idCliente: number) {
+        this.executar("/menu/" + idCliente);
     }
     public executar(url: string, cliente?: Cliente) {
         const telaAtualEhMenu = $("#menu-titulo").length;

@@ -78,8 +78,8 @@ var Tela = (function () {
 var ATM = (function () {
     function ATM() {
     }
-    ATM.prototype.iniciar = function (idCliente) {
-        this.executar("/iniciar/" + idCliente);
+    ATM.prototype.menu = function (idCliente) {
+        this.executar("/menu/" + idCliente);
     };
     ATM.prototype.executar = function (url, cliente) {
         var _this = this;

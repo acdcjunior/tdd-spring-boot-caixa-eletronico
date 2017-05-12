@@ -37,8 +37,8 @@ public class CaixaControllerTest {
 	}
 
     @Test
-    public void iniciar_cliente_1() throws Exception {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity("/iniciar/1", String.class);
+    public void menu_cliente_1() throws Exception {
+        ResponseEntity<String> entity = this.restTemplate.getForEntity("/menu/1", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(entity.getBody()).contains("menu");
     }
