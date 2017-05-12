@@ -1,5 +1,7 @@
 package tdd.caixaeletronico.web.viewmodel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @SuppressWarnings("unused")
 public class Opcao {
 
@@ -9,7 +11,7 @@ public class Opcao {
     private String label;
     private String url;
 
-    public Opcao(String label, String url) {
+    public Opcao(@JsonProperty("label") String label, @JsonProperty("url") String url) {
         this.label = label;
         this.url = url;
     }
