@@ -9,7 +9,7 @@ var Tela = (function () {
         $("#tela").html(novoHtml);
     };
     Tela.splash = function () {
-        (_a = ["\n    <div class=\"logo\">\n        <h2>\n                <span>\n                    <img src=\"assets/img/banco-logo.png\" style=\"height: 80px;\"><br>\n                    Banco TDD<br>\n                    <em>Nunca Falha!</em>\n                </span>\n        </h2>\n    </div>\n    <div class=\"rodape blinker\">Para come\u00E7ar, insira o cart\u00E3o<br>no local indicado.</div>\n        "], _a.raw = ["\n    <div class=\"logo\">\n        <h2>\n                <span>\n                    <img src=\"assets/img/banco-logo.png\" style=\"height: 80px;\"><br>\n                    Banco TDD<br>\n                    <em>Nunca Falha!</em>\n                </span>\n        </h2>\n    </div>\n    <div class=\"rodape blinker\">Para come\u00E7ar, insira o cart\u00E3o<br>no local indicado.</div>\n        "], Tela.html(_a));
+        (_a = ["\n    <div id=\"splash\" class=\"logo\">\n        <h2>\n                <span>\n                    <img src=\"assets/img/banco-logo.png\" style=\"height: 80px;\"><br>\n                    Banco TDD<br>\n                    <em>Nunca Falha!</em>\n                </span>\n        </h2>\n    </div>\n    <div class=\"rodape blinker\">Para come\u00E7ar, insira o cart\u00E3o<br>no local indicado.</div>\n        "], _a.raw = ["\n    <div id=\"splash\" class=\"logo\">\n        <h2>\n                <span>\n                    <img src=\"assets/img/banco-logo.png\" style=\"height: 80px;\"><br>\n                    Banco TDD<br>\n                    <em>Nunca Falha!</em>\n                </span>\n        </h2>\n    </div>\n    <div class=\"rodape blinker\">Para come\u00E7ar, insira o cart\u00E3o<br>no local indicado.</div>\n        "], Tela.html(_a));
         var _a;
     };
     Tela.carregando = function (mensagem, aguarde) {
@@ -53,10 +53,15 @@ var Tela = (function () {
         $("#bClear").off('click').on('click', function () { return $("#senha").val(''); });
     };
     Tela.senha = function (atm, cliente, urlSucesso) {
-        $("#bCancel").off('click').on('click', function () { return atm.executar("[CANCELAR]", cliente); });
+        $("#bCancel").off('click').on('click', function () {
+            $("#bCancel").off('click');
+            atm.executar("[CANCELAR]", cliente);
+        });
         $("#bEnter").off('click').on('click', function () {
+            $("#bEnter").off('click');
+            var senhaDigitada = $("#senha").val();
             Tela.carregando();
-            if ($("#senha").val() === cliente.senha) {
+            if (senhaDigitada === cliente.senha) {
                 atm.carregarUrl(urlSucesso);
             }
             else {
@@ -135,8 +140,9 @@ var ATM = (function () {
     };
     return ATM;
 }());
-ATM.DELAY_REDE_MS = 2000 - 1;
-ATM.DELAY_TELAS_INFORMACAO = 3000;
+ATM.REDUCAO = .5;
+ATM.DELAY_REDE_MS = 2000 * ATM.REDUCAO;
+ATM.DELAY_TELAS_INFORMACAO = 3000 * ATM.REDUCAO;
 var Operacao = (function () {
     function Operacao() {
     }

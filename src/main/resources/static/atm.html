@@ -54,7 +54,9 @@
         Tela.splash();
 
         $("#cartao").click(function () {
-            new ATM().iniciar(1);
+            if ($("#splash").length) {
+                new ATM().iniciar(1);
+            }
         });
     });
 

@@ -12,7 +12,7 @@ class Tela {
     }
     static splash() {
         Tela.html`
-    <div class="logo">
+    <div id="splash" class="logo">
         <h2>
                 <span>
                     <img src="assets/img/banco-logo.png" style="height: 80px;"><br>
@@ -103,10 +103,15 @@ class Tela {
         $("#bClear").off('click').on('click', () => $("#senha").val(''));
     }
     static senha(atm: ATM, cliente: Cliente, urlSucesso: string) {
-        $("#bCancel").off('click').on('click', () => atm.executar("[CANCELAR]", cliente));
+        $("#bCancel").off('click').on('click', () => {
+            $("#bCancel").off('click');
+            atm.executar("[CANCELAR]", cliente);
+        });
         $("#bEnter").off('click').on('click', () => {
+            $("#bEnter").off('click');
+            const senhaDigitada = $("#senha").val();
             Tela.carregando();
-            if ($("#senha").val() === cliente.senha) {
+            if (senhaDigitada === cliente.senha) {
                 atm.carregarUrl(urlSucesso);
             } else {
                 window.setTimeout(() => {
@@ -133,8 +138,9 @@ class Tela {
 }
 
 class ATM {
-    static readonly DELAY_REDE_MS: number = 2000 - 1;
-    static readonly DELAY_TELAS_INFORMACAO: number = 3000;
+    static readonly REDUCAO: number = .5;
+    static readonly DELAY_REDE_MS: number = 2000 * ATM.REDUCAO;
+    static readonly DELAY_TELAS_INFORMACAO: number = 3000 * ATM.REDUCAO;
 
     public iniciar(idCliente: number) {
         this.executar("/iniciar/" + idCliente);
