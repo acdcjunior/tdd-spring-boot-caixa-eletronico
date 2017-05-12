@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@SuppressWarnings("unused")
 @Entity
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,6 @@ public class Conta implements Serializable {
 	protected Conta() { }
 
     public Conta(String agencia, String codigo, String tipo, Cliente cliente, BigDecimal saldo) {
-        this.id = id;
         this.agencia = agencia;
         this.codigo = codigo;
         this.tipo = tipo;
