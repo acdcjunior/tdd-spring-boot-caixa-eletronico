@@ -83,9 +83,8 @@ var ATM = (function () {
     };
     ATM.prototype.executar = function (url, cliente) {
         var _this = this;
-        var telaAtualEhMenu = $("#menu-titulo").length;
         Tela.carregando();
-        switch (url) {
+        switch (url.replace(/[\/0-9]+/g, '')) {
             case '[CANCELAR]':
                 Tela.carregando("Obrigado por usar TDD!<br>Operação cancelada com sucesso.", "");
                 window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
@@ -96,15 +95,13 @@ var ATM = (function () {
                 return;
             case '[COMPROVANTE]':
                 Tela.carregando("Seu comprovante está sendo impresso.");
-                window.setTimeout(function () { return _this.executar("[SAIR]", cliente); }, ATM.DELAY_TELAS_INFORMACAO);
+                window.setTimeout(function () { return _this.executar("[SAIR]", cliente); }, ATM.DELAY_TELAS_INFORMACAO * 2);
+                return;
+            case 'saldo':
+                window.setTimeout(function () { return Tela.senha(_this, cliente, url); }, ATM.DELAY_REDE_MS);
                 return;
             default:
-                if (telaAtualEhMenu) {
-                    window.setTimeout(function () { return Tela.senha(_this, cliente, url); }, ATM.DELAY_REDE_MS);
-                }
-                else {
-                    this.carregarUrl(url);
-                }
+                this.carregarUrl(url);
         }
     };
     ATM.prototype.carregarUrl = function (url) {

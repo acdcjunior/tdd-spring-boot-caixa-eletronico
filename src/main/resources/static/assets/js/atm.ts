@@ -146,11 +146,9 @@ class ATM {
         this.executar("/menu/" + idCliente);
     }
     public executar(url: string, cliente?: Cliente) {
-        const telaAtualEhMenu = $("#menu-titulo").length;
-
         Tela.carregando();
 
-        switch (url) {
+        switch ((url as any).replace(/[\/0-9]+/g, '')) {
             case '[CANCELAR]':
                 Tela.carregando("Obrigado por usar TDD!<br>Operação cancelada com sucesso.", "");
                 window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
@@ -161,14 +159,13 @@ class ATM {
                 return;
             case '[COMPROVANTE]':
                 Tela.carregando("Seu comprovante está sendo impresso.");
-                window.setTimeout(() => this.executar("[SAIR]", cliente), ATM.DELAY_TELAS_INFORMACAO);
+                window.setTimeout(() => this.executar("[SAIR]", cliente), ATM.DELAY_TELAS_INFORMACAO*2);
+                return;
+            case 'saldo':
+                window.setTimeout(() => Tela.senha(this, cliente, url), ATM.DELAY_REDE_MS);
                 return;
             default:
-                if (telaAtualEhMenu) {
-                    window.setTimeout(() => Tela.senha(this, cliente, url), ATM.DELAY_REDE_MS);
-                } else {
-                    this.carregarUrl(url);
-                }
+                this.carregarUrl(url);
         }
     }
 
