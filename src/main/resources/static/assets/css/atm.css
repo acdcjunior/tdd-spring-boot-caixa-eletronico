@@ -104,21 +104,17 @@ html, body {
     50% { opacity: 0; }
 }
 
-
 .center {
     width: 100%;
     text-align: center;
 }
 
-/*************************************************************/
-/* TELA MENU */
-/*************************************************************/
-
-#menu-titulo {
+#menu-titulo, #menu-subtitulo {
     width: 100%;
     text-align: center;
     margin-top: 10px;
 }
+
 [id^=menu-opcao] {
     position: absolute;
 }

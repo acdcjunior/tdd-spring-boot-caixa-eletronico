@@ -34,6 +34,9 @@ public class CaixaController {
         Operacao operacao = new Operacao();
         operacao.setTipo("menu");
         operacao.setTitulo("BANCO TDD<br>SELECIONE A OPERACAO DESEJADA");
+
+        operacao.setCliente(clienteRepository.findById(idCliente));
+
         operacao.setOpcao3(new Opcao("Saldo", "/saldo/" + idCliente));
         operacao.setOpcao4(new Opcao("Saque", "/saque/" + idCliente));
         operacao.setOpcao7(new Opcao("Financiamento", "/financiamento/" + idCliente));

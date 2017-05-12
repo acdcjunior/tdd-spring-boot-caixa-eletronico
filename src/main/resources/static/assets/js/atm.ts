@@ -1,6 +1,5 @@
 declare const $: any;
 declare const window: any;
-declare const console: any;
 
 const HOST = 'http://127.0.0.1:8080/';
 
@@ -36,11 +35,11 @@ class Tela {
     </div>
         `)
     }
-
     static menu(operacao: Operacao) {
         Tela.html(`
     <div>
         <div id="menu-titulo">${operacao.titulo}</div>
+        <div id="menu-subtitulo">${(operacao.cliente.nome as any).toUpperCase()} (${(operacao.cliente.cpf as any).toUpperCase()})</div>
         <div id="menu-opcao1">${operacao.opcao1 && operacao.opcao1.label || ''}</div>
         <div id="menu-opcao2">${operacao.opcao2 && operacao.opcao2.label || ''}</div>
         <div id="menu-opcao3">${operacao.opcao3 && operacao.opcao3.label || ''}</div>
@@ -52,7 +51,6 @@ class Tela {
     </div>
         `);
     }
-
     static relatorio(operacao: Operacao) {
         let d = new window.Date();
         let curr_date = zeroPad(d.getDate());
@@ -86,34 +84,89 @@ class Tela {
     }
     static erro() {
         Tela.carregando("Operação indisponível no momento.<br><br>Por favor, tente novamente mais tarde.", "");
-        window.setTimeout(Tela.splash, 5000);
+        window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO * 2);
+    }
+    static configurarTeclado() {
+        function up(numero) {
+            $("#senha").val( ($("#senha").val()+numero).substr(0, 4) );
+        }
+        $("#b1").off('click').on('click', () => up(1));
+        $("#b2").off('click').on('click', () => up(2));
+        $("#b3").off('click').on('click', () => up(3));
+        $("#b4").off('click').on('click', () => up(4));
+        $("#b5").off('click').on('click', () => up(5));
+        $("#b6").off('click').on('click', () => up(6));
+        $("#b7").off('click').on('click', () => up(7));
+        $("#b8").off('click').on('click', () => up(8));
+        $("#b9").off('click').on('click', () => up(9));
+        $("#b0").off('click').on('click', () => up(0));
+        $("#bClear").off('click').on('click', () => $("#senha").val(''));
+    }
+    static senha(atm: ATM, cliente: Cliente, urlSucesso: string) {
+        $("#bCancel").off('click').on('click', () => atm.executar("[CANCELAR]", cliente));
+        $("#bEnter").off('click').on('click', () => {
+            Tela.carregando();
+            if ($("#senha").val() === cliente.senha) {
+                atm.carregarUrl(urlSucesso);
+            } else {
+                window.setTimeout(() => {
+                    Tela.carregando("Senha incorreta.<br>Operação cancelada com sucesso.", "");
+                    window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
+                }, ATM.DELAY_REDE_MS);
+            }
+        });
+
+        Tela.html(`
+    <div class="centro-tela">
+            <span>
+                Digite sua senha para continuar.
+                <br>
+                <br>
+                <input id="senha" type="text" style="width: 31%; font-size: 300%;">
+                <br>
+                <br>
+                Pressione ENTER para continuar ou CANCEL para cancelar.
+            </span>
+    </div>
+        `);
     }
 }
 
 class ATM {
-    static readonly DELAY_REDE_MS: number = 2000 - 1900;
+    static readonly DELAY_REDE_MS: number = 2000 - 1;
+    static readonly DELAY_TELAS_INFORMACAO: number = 3000;
 
     public iniciar(idCliente: number) {
-        this.operacao("/iniciar/" + idCliente);
+        this.executar("/iniciar/" + idCliente);
     }
-    public operacao(url) {
+    public executar(url: string, cliente?: Cliente) {
+        const telaAtualEhMenu = $("#menu-titulo").length;
+
         Tela.carregando();
-        console.log('going: ' + url);
+
         switch (url) {
+            case '[CANCELAR]':
+                Tela.carregando("Obrigado por usar TDD!<br>Operação cancelada com sucesso.", "");
+                window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
+                return;
             case '[SAIR]':
                 Tela.carregando("Obrigado por usar TDD!<br>Operação finalizada com sucesso.", "");
-                window.setTimeout(Tela.splash, 3000);
+                window.setTimeout(Tela.splash, ATM.DELAY_TELAS_INFORMACAO);
                 return;
             case '[COMPROVANTE]':
                 Tela.carregando("Seu comprovante está sendo impresso.");
-                window.setTimeout(() => this.operacao("[SAIR]"), 3000);
+                window.setTimeout(() => this.executar("[SAIR]", cliente), ATM.DELAY_TELAS_INFORMACAO);
                 return;
             default:
-                this.carregarUrl(url);
+                if (telaAtualEhMenu) {
+                    window.setTimeout(() => Tela.senha(this, cliente, url), ATM.DELAY_REDE_MS);
+                } else {
+                    this.carregarUrl(url);
+                }
         }
     }
 
-    private carregarUrl(url) {
+    carregarUrl(url) {
         window.setTimeout(() => {
             $.ajax({
                 dataType: "json",
@@ -133,14 +186,14 @@ class ATM {
         }, ATM.DELAY_REDE_MS);
     }
     private configurarBotoes(operacao: Operacao) {
-        $('#opcao1').off('click').on('click', () => this.operacao(operacao.opcao1.url));
-        $('#opcao2').off('click').on('click', () => this.operacao(operacao.opcao2.url));
-        $('#opcao3').off('click').on('click', () => this.operacao(operacao.opcao3.url));
-        $('#opcao4').off('click').on('click', () => this.operacao(operacao.opcao4.url));
-        $('#opcao5').off('click').on('click', () => this.operacao(operacao.opcao5.url));
-        $('#opcao6').off('click').on('click', () => this.operacao(operacao.opcao6.url));
-        $('#opcao7').off('click').on('click', () => this.operacao(operacao.opcao7.url));
-        $('#opcao8').off('click').on('click', () => this.operacao(operacao.opcao8.url));
+        $('#opcao1').off('click').on('click', () => this.executar(operacao.opcao1.url, operacao.cliente));
+        $('#opcao2').off('click').on('click', () => this.executar(operacao.opcao2.url, operacao.cliente));
+        $('#opcao3').off('click').on('click', () => this.executar(operacao.opcao3.url, operacao.cliente));
+        $('#opcao4').off('click').on('click', () => this.executar(operacao.opcao4.url, operacao.cliente));
+        $('#opcao5').off('click').on('click', () => this.executar(operacao.opcao5.url, operacao.cliente));
+        $('#opcao6').off('click').on('click', () => this.executar(operacao.opcao6.url, operacao.cliente));
+        $('#opcao7').off('click').on('click', () => this.executar(operacao.opcao7.url, operacao.cliente));
+        $('#opcao8').off('click').on('click', () => this.executar(operacao.opcao8.url, operacao.cliente));
     }
 }
 
@@ -173,4 +226,5 @@ class Conta {
 class Cliente {
     nome: string;
     cpf: string;
+    senha: string;
 }

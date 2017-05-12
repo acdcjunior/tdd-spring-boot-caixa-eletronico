@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <xbase href="http://127.0.0.1:8080">
     <meta charset="UTF-8">
     <title>TDD + Caixa Eletrônico</title>
     <link rel="stylesheet" href="assets/css/atm.css">
@@ -51,6 +50,7 @@
 <script src="assets/js/atm.js"></script>
 <script>
     $(function () {
+        Tela.configurarTeclado();
         Tela.splash();
 
         $("#cartao").click(function () {
