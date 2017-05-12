@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 @Entity
 public class Conta implements Serializable {
 

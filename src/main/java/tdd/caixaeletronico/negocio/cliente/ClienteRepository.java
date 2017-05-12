@@ -10,6 +10,4 @@ public interface ClienteRepository extends Repository<Cliente, Long> {
 
 	Page<Cliente> findAll(Pageable pageable);
 
-	Cliente findByNomeContainingIgnoringCase(String nome);
-
 }
