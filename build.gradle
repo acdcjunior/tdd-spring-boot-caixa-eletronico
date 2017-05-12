@@ -27,7 +27,6 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-mustache")
     compile("org.springframework.boot:spring-boot-starter-web")
 
     compile("org.flywaydb:flyway-core:4.1.1")

@@ -21,29 +21,26 @@ public class CaixaControllerTest {
 	private TestRestTemplate restTemplate;
 
 	@Test
-	public void testMustacheTemplate() throws Exception {
+	public void index_redireciona() throws Exception {
 		ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
-		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody()).contains("ATM + Redirecionamento");
+		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.FOUND);
 	}
 
 	@Test
-	public void testMustacheErrorTemplate() throws Exception {
+	public void pagina_404() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.TEXT_HTML));
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 		ResponseEntity<String> responseEntity = this.restTemplate
 				.exchange("/does-not-exist", HttpMethod.GET, requestEntity, String.class);
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-		assertThat(responseEntity.getBody())
-				.contains("Algo deu errado: 404 Not Found");
 	}
 
     @Test
-    public void contas() throws Exception {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity("/contas", String.class);
+    public void iniciar_cliente_1() throws Exception {
+        ResponseEntity<String> entity = this.restTemplate.getForEntity("/iniciar/1", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody()).contains("\"saldo\":50.00");
+        assertThat(entity.getBody()).contains("menu");
     }
 
 }

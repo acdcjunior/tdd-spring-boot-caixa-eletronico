@@ -24,10 +24,10 @@ public class CaixaController {
         this.contaRepository = contaRepository;
     }
 
-	@GetMapping("/")
-	public String welcome() {
-		return "atm";
-	}
+    @GetMapping("/")
+    public String index() {
+        return "redirect:atm.html";
+    }
 
     @GetMapping("/iniciar/{idCliente}")
     @ResponseBody

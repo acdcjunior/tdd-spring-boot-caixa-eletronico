@@ -2,14 +2,13 @@
 
 [![Build Status](https://travis-ci.org/acdcjunior/tdd-spring-boot-caixa-eletronico.svg?branch=master)](https://travis-ci.org/acdcjunior/tdd-spring-boot-caixa-eletronico)
 
-![atm tdd](src/main/resources/static/banco-logo.png)
-![atm tdd](src/main/resources/static/atm796x597.png)
+![atm tdd](src/main/resources/static/assets/img/banco-logo.png)
+![atm tdd](src/main/resources/static/assets/img/atm796x597.png)
 
 ## Tecnologias/Ferramentas usadas
 
 - Spring Boot
 - Gradle
-- Mustache (linguagem de template)
 - Flyway
 - Spring Data
 - Hibernate
