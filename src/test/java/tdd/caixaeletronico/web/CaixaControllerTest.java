@@ -24,7 +24,7 @@ public class CaixaControllerTest {
 	public void testMustacheTemplate() throws Exception {
 		ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
 		assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(entity.getBody()).contains("TDD + Caixa");
+		assertThat(entity.getBody()).contains("ATM + Redirecionamento");
 	}
 
 	@Test
