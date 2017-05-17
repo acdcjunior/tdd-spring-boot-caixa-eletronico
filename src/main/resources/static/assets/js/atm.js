@@ -21,7 +21,7 @@ var Tela = (function () {
         Tela.html("\n    <div>\n        <div id=\"menu-titulo\">" + operacao.titulo + "</div>\n        <div id=\"menu-subtitulo\">" + (operacao.cliente ? operacao.cliente.nome.toUpperCase() + "(" + operacao.cliente.cpf.toUpperCase() + ")" : "") + "</div>\n        <div id=\"menu-opcao1\">" + (operacao.opcao1 && operacao.opcao1.label || '') + "</div>\n        <div id=\"menu-opcao2\">" + (operacao.opcao2 && operacao.opcao2.label || '') + "</div>\n        <div id=\"menu-opcao3\">" + (operacao.opcao3 && operacao.opcao3.label || '') + "</div>\n        <div id=\"menu-opcao4\">" + (operacao.opcao4 && operacao.opcao4.label || '') + "</div>\n        <div id=\"menu-opcao5\">" + (operacao.opcao5 && operacao.opcao5.label || '') + "</div>\n        <div id=\"menu-opcao6\">" + (operacao.opcao6 && operacao.opcao6.label || '') + "</div>\n        <div id=\"menu-opcao7\">" + (operacao.opcao7 && operacao.opcao7.label || '') + "</div>\n        <div id=\"menu-opcao8\">" + (operacao.opcao8 && operacao.opcao8.label || '') + "</div>\n    </div>\n        ");
     };
     Tela.relatorio = function (operacao) {
-        var d = new window.Date();
+        var d = new Date();
         var curr_date = zeroPad(d.getDate());
         var curr_month = zeroPad(d.getMonth() + 1); //Months are zero based
         var curr_year = d.getFullYear().toString().substr(2);
@@ -122,6 +122,9 @@ var ATM = (function () {
             case 'saldo':
                 window.setTimeout(function () { return Tela.senha(_this, cliente, url); }, ATM.DELAY_REDE_MS);
                 return;
+            case 'saque':
+                window.setTimeout(function () { return Tela.entradaValor(_this, cliente, url); }, ATM.DELAY_REDE_MS);
+                return;
             default:
                 this.carregarUrl(url);
         }
@@ -165,7 +168,7 @@ var ATM = (function () {
     };
     return ATM;
 }());
-ATM.REDUCAO = .5;
+ATM.REDUCAO = 1;
 ATM.DELAY_REDE_MS = 2000 * ATM.REDUCAO;
 ATM.DELAY_TELAS_INFORMACAO = 3000 * ATM.REDUCAO;
 var Operacao = (function () {

@@ -61,4 +61,11 @@ public class Conta implements Serializable {
 		return this.saldo;
 	}
 
+    public void sacar(BigDecimal montanteSacado) {
+        BigDecimal novoSaldo = this.saldo.subtract(montanteSacado);
+        if (novoSaldo.compareTo(BigDecimal.ZERO) < 0) {
+            throw new SaldoInsuficienteException();
+        }
+        this.saldo = novoSaldo;
+    }
 }

@@ -36,6 +36,7 @@ public class MenuController {
         operacao.setCliente(clienteRepository.findById(idCliente));
 
         operacao.setOpcao3(new Opcao("Saldo", "/saldo/" + idCliente));
+        operacao.setOpcao4(new Opcao("Saque", "/saque/" + idCliente));
         operacao.setOpcao7(new Opcao("Financiamento", "/financiamento/" + idCliente));
         operacao.setOpcao8(new Opcao("Sair", Opcao.SAIR));
         return operacao;

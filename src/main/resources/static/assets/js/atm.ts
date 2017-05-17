@@ -1,5 +1,4 @@
 declare const $: any;
-declare const window: any;
 
 const HOST = window.location.href.indexOf('_ijt') !== -1 ? 'http://127.0.0.1:8080/' : '/';
 
@@ -52,7 +51,7 @@ class Tela {
         `);
     }
     static relatorio(operacao: Operacao) {
-        let d = new window.Date();
+        let d = new Date();
         let curr_date = zeroPad(d.getDate());
         let curr_month = zeroPad(d.getMonth() + 1); //Months are zero based
         let curr_year = d.getFullYear().toString().substr(2);
@@ -172,7 +171,7 @@ class Tela {
 }
 
 class ATM {
-    static readonly REDUCAO: number = .5;
+    static readonly REDUCAO: number = 1;
     static readonly DELAY_REDE_MS: number = 2000 * ATM.REDUCAO;
     static readonly DELAY_TELAS_INFORMACAO: number = 3000 * ATM.REDUCAO;
 
@@ -197,6 +196,9 @@ class ATM {
                 return;
             case 'saldo':
                 window.setTimeout(() => Tela.senha(this, cliente, url), ATM.DELAY_REDE_MS);
+                return;
+            case 'saque':
+                window.setTimeout(() => Tela.entradaValor(this, cliente, url), ATM.DELAY_REDE_MS);
                 return;
             default:
                 this.carregarUrl(url);

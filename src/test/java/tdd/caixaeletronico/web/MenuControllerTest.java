@@ -31,6 +31,7 @@ public class MenuControllerTest {
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(entity.getBody()).contains("Sair");
         assertThat(entity.getBody()).contains("Financiamento");
+        assertThat(entity.getBody()).contains("Saque");
         assertThat(entity.getBody()).contains("Saldo");
     }
 

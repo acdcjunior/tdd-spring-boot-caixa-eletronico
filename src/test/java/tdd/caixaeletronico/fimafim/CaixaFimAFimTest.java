@@ -43,8 +43,8 @@ public class CaixaFimAFimTest {
         Conta conta = new Conta("1144-X", "99999-9", "CC", cliente, new BigDecimal(5000));
         given(contaRepository.findByCliente(cliente)).willReturn(conta);
 
-//        $.driver().useChrome();
-        this.espera = 3000;
+        $.driver().useChrome();
+        this.espera = 1000;
         $.url("http://127.0.0.1:" + port + "/");
     }
 
