@@ -41,3 +41,39 @@ dependencies {
 
     testCompile("io.github.seleniumquery:seleniumquery:0.16.0")
 }
+
+// https://stackoverflow.com/questions/45174989/building-with-intellij-2017-2-out-directory-duplicates-files-in-build-director
+
+// https://youtrack.jetbrains.com/issue/IDEA-151925
+//apply plugin: 'idea'
+//
+//idea {
+//    module {
+//        testSourceDirs += file('src/test-it/java')
+//    }
+//}
+//
+//sourceSets.test.java.srcDirs = ['src/test/java', 'src/test-it/java']
+//sourceSets.test.resources.srcDirs = ['src/test/resources', 'src/test-it/resources']
+//sourceSets {
+//    'test-it' {
+//        java {
+//            srcDir 'src/test-it/java'
+//        }
+//        resources {
+//            srcDir 'src/test-it/resources'
+//        }
+//        compileClasspath += sourceSets.main.runtimeClasspath
+//    }
+//}
+
+//sourceSets {
+//    test {
+//        javax.srcDir 'src/test-it/java'
+//        resources.srcDir 'src/test-it/resources'
+//    }
+//}
+
+//task it(type: Test, dependsOn: testClasses) {
+//    include 'src/test-it/java/**'
+//}
