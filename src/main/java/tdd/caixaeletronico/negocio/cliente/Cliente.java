@@ -19,8 +19,11 @@ public class Cliente implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
-	@Column(nullable = false)
+	@Column
 	private String cpf;
+
+	@Column
+	private ClienteId cid;
 
 	@Column(nullable = false)
 	private String senha;
@@ -46,5 +49,16 @@ public class Cliente implements Serializable {
     public String getSenha() {
         return senha;
     }
+    public ClienteId getCid() { return cid; }
 
+    @Override
+    public String toString() {
+        return "Cliente{" +
+            "id=" + id +
+            ", nome='" + nome + '\'' +
+            ", cpf='" + cpf + '\'' +
+            ", cid='" + cid + '\'' +
+            ", senha='" + senha + '\'' +
+            '}';
+    }
 }
