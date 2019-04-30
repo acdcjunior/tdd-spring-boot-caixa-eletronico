@@ -8,6 +8,7 @@ import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.Configurable;
 import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.StandardBasicTypes;
@@ -25,6 +26,7 @@ public class DomainIdGenerator implements IdentifierGenerator, Configurable {
     @Override
     @SuppressWarnings("SqlNoDataSourceInspection")
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+//        SequenceStyleGenerator
         String consultaSequence = "SELECT " + nomeSequence + ".NEXTVAL AS COD FROM DUAL";
         try {
             Query query = session.createSQLQuery(consultaSequence).addScalar("cod", StandardBasicTypes.LONG);

@@ -47,6 +47,12 @@ public class ClienteRepositoryIntegrationTest {
 
         clienteDoisRepository.save(new ClienteDois("bob8888"));
         System.out.println("### 3 -> " + clienteDoisRepository.findAll());
+
+        ClienteDois entity = new ClienteDois("444444444444");
+        entity.add(new ClienteTres("44444444!"));
+        entity.add(new ClienteTres("4555555555!"));
+        clienteDoisRepository.save(entity);
+        System.out.println("### 3 -> " + clienteDoisRepository.findAll());
     }
 
     @Test
